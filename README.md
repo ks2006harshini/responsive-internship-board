@@ -161,7 +161,17 @@ The website is designed to work on:
 **Frontend:** HTML, CSS, JavaScript
 
 **Backend:** Node.js
+## 🌐 Live Demo
 
+**Visit InternBoard:** https://responsive-internship-board-nqq8.onrender.com
+
+## 🚀 Deployment
+
+The project is deployed using Render.
+
+- Frontend: HTML, CSS, JavaScript
+- Backend: Node.js
+- Hosting: Render
 ---
 
 ## 📄 License
