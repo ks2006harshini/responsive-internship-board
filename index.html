@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find and apply for student internships.">
+    <title>InternBoard | Find Your Internship</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <a href="#" class="logo">
+            Intern<span>Board.</span>
+        </a>
+
+        <nav aria-label="Main navigation">
+            <a href="#home" class="active">Home</a>
+            <a href="#internships">Internships</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <a href="#internships" class="nav-button">Explore Jobs</a>
+    </header>
+
+    <main>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <span class="hero-tag">
+                    ✦ YOUR CAREER STARTS HERE
+                </span>
+
+                <h1>
+                    Find Your Perfect
+                    <span>Internship.</span>
+                </h1>
+
+                <p>
+                    Discover exciting internship opportunities,
+                    develop your skills and take the first step
+                    towards your dream career.
+                </p>
+
+                <div class="hero-search">
+                    <span class="search-icon">⌕</span>
+                    <label class="visually-hidden" for="searchInput">
+                        Search internships
+                    </label>
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search internship, skills or location..."
+                    >
+                    <button type="button" id="searchButton">
+                        Search
+                    </button>
+                </div>
+
+                <div class="hero-stats">
+                    <div>
+                        <strong>05+</strong>
+                        <span>Opportunities</span>
+                    </div>
+                    <div>
+                        <strong>04+</strong>
+                        <span>Domains</span>
+                    </div>
+                    <div>
+                        <strong>03</strong>
+                        <span>Work Modes</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-decoration">
+                <div class="decoration-circle">
+                    <span>✦</span>
+                </div>
+                <div class="floating-card">
+                    <span class="floating-icon">💼</span>
+                    <div>
+                        <strong>Start Your Journey</strong>
+                        <small>Explore opportunities</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Internship Section -->
+        <section class="internship-section" id="internships">
+
+            <div class="section-heading">
+                <div>
+                    <span class="section-tag">EXPLORE OPPORTUNITIES</span>
+                    <h2>Find Your Internship</h2>
+                    <p>Discover opportunities that match your interests and skills.</p>
+                </div>
+
+                <div class="result-box" id="resultCount" aria-live="polite">
+                    Loading...
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-panel">
+
+                <div class="filter-group search-filter">
+                    <label for="searchInput">Search</label>
+                    <span>⌕</span>
+                    <input
+                        type="search"
+                        id="searchInputSecondary"
+                        placeholder="Search by title or skill..."
+                    >
+                </div>
+
+                <div class="filter-group">
+                    <label for="domainFilter">Domain</label>
+                    <select id="domainFilter">
+                        <option value="All">All Domains</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="modeFilter">Work Mode</label>
+                    <select id="modeFilter">
+                        <option value="All">All Modes</option>
+                        <option value="Remote">Remote</option>
+                        <option value="Hybrid">Hybrid</option>
+                        <option value="On-site">On-site</option>
+                    </select>
+                </div>
+
+                <button type="button" id="resetButton" class="reset-button">
+                    Reset
+                </button>
+
+            </div>
+
+            <!-- Loading -->
+            <div id="loadingMessage" class="message">
+                Loading internships...
+            </div>
+
+            <!-- Error -->
+            <div id="errorMessage" class="message error" hidden>
+                <p>Unable to load internship opportunities.</p>
+                <button type="button" id="retryButton">Try Again</button>
+            </div>
+
+            <!-- Empty -->
+            <div id="emptyMessage" class="empty-state" hidden>
+                <div class="empty-icon">⌕</div>
+                <h3>No Internships Found</h3>
+                <p>Try another search or change your filters.</p>
+            </div>
+
+            <!-- Internship Cards -->
+            <div class="internship-grid" id="internshipList"></div>
+
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div>
+                <span class="section-tag">ABOUT INTERNBOARD</span>
+                <h2>Your Journey Begins With One Opportunity.</h2>
+                <p>
+                    InternBoard helps students discover internship
+                    opportunities and gain practical experience
+                    to build their careers.
+                </p>
+            </div>
+            <a href="#internships" class="about-button">
+                Explore Internships →
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Details Dialog -->
+    <dialog id="detailsDialog" class="dialog">
+        <div class="dialog-content">
+            <button type="button" class="close-btn"
+                    data-close="detailsDialog" aria-label="Close">
+                &times;
+            </button>
+            <div id="detailsContent"></div>
+        </div>
+    </dialog>
+
+    <!-- Application Dialog -->
+    <dialog id="applyDialog" class="dialog">
+        <div class="dialog-content">
+            <button type="button" class="close-btn"
+                    data-close="applyDialog" aria-label="Close">
+                &times;
+            </button>
+
+            <span class="section-tag">APPLICATION FORM</span>
+            <h2>Apply for Internship</h2>
+            <p id="applicationTitle" class="application-subtitle"></p>
+
+            <form id="applicationForm">
+                <input type="hidden" id="internshipId">
+
+                <label for="applicantName">Full Name</label>
+                <input
+                    type="text"
+                    id="applicantName"
+                    placeholder="Enter your full name"
+                    minlength="2"
+                    maxlength="80"
+                    required
+                >
+
+                <label for="applicantEmail">Email Address</label>
+                <input
+                    type="email"
+                    id="applicantEmail"
+                    placeholder="Enter your email"
+                    maxlength="254"
+                    required
+                >
+
+                <label for="portfolioUrl">Portfolio URL (Optional)</label>
+                <input
+                    type="url"
+                    id="portfolioUrl"
+                    placeholder="https://example.com"
+                >
+
+                <button type="submit" class="submit-button">
+                    Submit Application →
+                </button>
+
+                <p id="formMessage" aria-live="polite"></p>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div>
+            <a href="#" class="footer-logo">
+                Intern<span>Board.</span>
+            </a>
+            <p>Connecting students with career opportunities.</p>
+        </div>
+
+        <p class="copyright">
+            © 2026 InternBoard. All rights reserved.
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
