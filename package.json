@@ -1,0 +1,11 @@
+
+{
+  "name": "responsive-internship-board",
+  "version": "1.0.0",
+  "description": "Responsive Internship Board using HTML, CSS, JavaScript and Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "private": true
+}
