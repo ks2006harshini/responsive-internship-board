@@ -1,18 +1,11 @@
 
-const Database = require("better-sqlite3");
-const path = require("path");
-const fs = require("fs");
+require("dotenv").config();
 
-const dbPath = process.env.DB_PATH || path.join(__dirname, "internship.db");
-const db = new Database(dbPath);
+const { createClient } = require("@libsql/client");
 
-db.pragma("foreign_keys = ON");
-
-const schema = fs.readFileSync(
-    path.join(__dirname, "schema.sql"),
-    "utf8"
-);
-
-db.exec(schema);
+const db = createClient({
+    url: process.env.TURSO_DATABASE_URL,
+    authToken: process.env.TURSO_AUTH_TOKEN
+});
 
 module.exports = db;
